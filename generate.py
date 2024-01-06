@@ -22,10 +22,10 @@ def main() -> None:
 
 def create_certificate(name: str, shilling: str, template: str) -> None:
     cert_html = template.replace("{name}", name).replace("{shilling}", shilling)
-    cert_path = CERTS_PATH / f"{name} ({shilling}).html"
+    cert_path = CERTS_PATH / f"{name}_{shilling}.html"
     cert_path.write_text(cert_html)
 
-    print(f"{name} -> {cert_path}")
+    print(f"Generated {shilling} certificate for {name} at {cert_path}")
 
 
 if __name__ == "__main__":
