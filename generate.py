@@ -25,7 +25,7 @@ def create_certificate(name: str, shilling: str, template: str) -> None:
     cert_path = CERTS_PATH / f"{name}_{shilling}.html"
     cert_path.write_text(cert_html)
 
-    print(f"Generated {shilling} certificate for {name} at {cert_path}")
+    print(f"{name} ({shilling}) -> {cert_path}")
 
 
 if __name__ == "__main__":
