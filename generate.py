@@ -12,27 +12,25 @@ def main() -> None:
     CERTS_PATH.mkdir(exist_ok=True)
 
     for name, shilling in entries.items():
-        if isinstance(shilling, str):
-            # Person only shills one thing
-            shilling = [shilling]
+        create_certificate(name, shilling, template)
 
-        cert_html = template.replace("{name}", name).replace(
-            "{shilling}", format_csv_with_and(shilling)
-        )
-        cert_path = CERTS_PATH / f"{name}.html"
-        cert_path.write_text(cert_html)
 
-        print(f"{name} -> {cert_path}")
+def create_certificate(name: str, shilling: str | list[str], template: str) -> None:
+    if isinstance(shilling, str):
+        # Person only shills one thing
+        shilling = [shilling]
+
+    cert_html = template.replace("{name}", name).replace(
+        "{shilling}", format_csv_with_and(shilling)
+    )
+    cert_path = CERTS_PATH / f"{name}.html"
+    cert_path.write_text(cert_html)
+
+    print(f"{name} -> {cert_path}")
 
 
 def format_csv_with_and(items: list[str]) -> str:
-    """Format a list of items as a comma-separated list with an "and" before the last item.
-
-    >>> format_csv_with_and(["a", "b", "c"])
-    'a, b, and c'
-    >>> format_csv_with_and(["a", "b"])
-    'a and b'
-    """
+    """Format a list of items as a comma-separated list with an "and" before the last item."""
 
     if len(items) == 1:
         return items[0]
